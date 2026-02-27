@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    <title>Rick & Morty Explorer</title>
+  </head>
+  <body>
+    <div class="app-container">
+      
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">RICK & MORTY</h1>
+            <p class="tagline">Interdimensional Explorer</p>
+
+            <nav class="nav">
+                <button class="nav-btn active" data-view="characters">
+                    Personajes
+                </button>
+                <button class="nav-btn" data-view="episodes">
+                    Episodios
+                </button>
+                <button class="nav-btn" data-view="favorites">
+                    Favoritos
+                    <span class="count" id="favorites-count" style="display: none;">0</span>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="main-content">
+            <!-- Content will be dynamically loaded here -->
+        </main>
+    </div>
+
+    <!-- Modal Container (hidden by default) -->
+    <div id="modal-container"></div>
+
+    
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+%btn { // boton base   "@extend %btn;"
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+%ul { // boton base   "@extend %btn;"
+  list-style: none;
+  margin: 0;
+}

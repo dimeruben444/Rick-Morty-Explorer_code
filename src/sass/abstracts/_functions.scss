@@ -1,0 +1,3 @@
+@function rem($px) { // convertidor de px a rem
+  @return $px / 16 * 1rem;
+}

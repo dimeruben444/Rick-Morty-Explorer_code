@@ -1,0 +1,103 @@
+.header {
+    background: linear-gradient(135deg, #1a0033 0%, #0d001a 100%);
+    border-bottom: 2px solid #00ff88;
+    padding: 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 30px rgba(0, 255, 136, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+    letter-spacing: 3px;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    animation: glowPulse 2.5s ease-in-out infinite;
+
+}
+
+@keyframes glowPulse {
+    0%, 100% { filter: drop-shadow(0 0 10px #00ff88); }
+    50% { filter: drop-shadow(0 0 20px #00ff88); }
+}
+
+.tagline {
+    font-size: 1rem;
+    color: #44d9e8;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    opacity: 0.8;
+    margin: 0;
+}
+
+
+
+// NAV 
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    background: transparent;
+    border: 2px solid #00ff88;
+    color: #00ff88;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #00ff88;
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.nav-btn:hover::before {
+    left: 0;
+}
+
+.nav-btn:hover {
+    color: #0d001a;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.nav-btn.active {
+    background: #00ff88;
+    color: #0d001a;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.nav-btn .count {
+    background: #ff006e;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+}
