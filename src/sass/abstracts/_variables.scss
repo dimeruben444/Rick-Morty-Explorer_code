@@ -18,7 +18,24 @@ $colors: (  // "map-get($colors, "text");"
   "primary": #2f343d,
   "secondary": #404a5a,
   "accent": #00f3f3,
+
+  "space-deep": #0d001a,
+  "dead-red": #ff006e,
+  "alive-green": #00ff88,
+  "unknown-gray": #8d99ae,
+  "portal-green": #00ff88,
+  "portal-glow": rgba(0, 255, 133),
 );
+
+//--portal-green: #00ff88;
+//  --portal-glow: rgba(0, 255, 133);
+//  --space-purple: #1a0033;
+
+//  --electric-blue: #00d9ff;
+//  --rick-cyan: #44d9e8;
+//  --morty-yellow: #f5d742;
+
+
 
 /**
  * Use Utopia to generate responsive font sizes
@@ -39,3 +56,4 @@ $font-weights: (  // font-weight: map-get($font-weights, "500");
   "regular": 400,
   "bold": 700,
 );
+

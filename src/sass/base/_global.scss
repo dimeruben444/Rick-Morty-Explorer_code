@@ -1,3 +1,19 @@
+
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+}
+
+body {
+  font-family: 'Space Mono', monospace;
+  background-color: var(--clr-space-deep);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+
+/* 
 body {
   font-family: var(--ff-primary);
   font-size: var(--fs-400);
@@ -6,9 +22,4 @@ body {
   color: var(--clr-text);
   font-weight: 400;
 }
-
-h1,
-h2,
-h3 {
-  line-height: 1.1;
-}
+ */
