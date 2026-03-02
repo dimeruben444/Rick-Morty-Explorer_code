@@ -4,11 +4,13 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rick & Morty Explorer</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
-    <title>Rick & Morty Explorer</title>
+    
+    
   </head>
   <body>
     <header class="header">
@@ -27,7 +29,22 @@
                     <span class="count" id="favorites-count" style="display: none;">0</span>
                 </button>
             </nav>
+
+            <div id="explorer">
+              <form action="">
+                <input type="text" id="search" placeholder="Buscar...">
+                <select name="status" id="filtro">
+                  <option value="">-- Selecciona una opción --</option>
+                  <option value="Alive">Alive</option>
+                  <option value="Dead">Dead</option>
+                  <option value="Unknown">Unknown</option>
+
+                </select>
+              </form>
+            </div>
         </header>
+
+        
     <div id="app" class="grid"></div>
 <!-- 
     <div class="card">
@@ -45,8 +62,10 @@
  -->
     <div id="pagination">
       <button id="anterior">Anterior</button>
-      <div id="pagination-text"></div>
-      <button id="siguiente">Sigiente</button>
+      <div id="paginfo"></div>
+      <button id="siguiente">Siguiente</button>
+
+      
     </div>
 
 
