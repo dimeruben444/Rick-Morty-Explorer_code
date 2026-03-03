@@ -23,6 +23,25 @@
         padding: 10px;
         margin: 0;
     }
+
+    .info-container h3{
+    
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
+        margin-top: 0;
+        animation: glowPulse 2.5s ease-in-out infinite;
+    }
+
+    .info-container .character-specie{
+        color: var(--clr-rick-cyan);
+        font-family: 'Space Mono', monospace ;
+    }
 }
 .card:hover .img-container img {
     transform: scale(1.1);

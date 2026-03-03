@@ -5,20 +5,28 @@ let arrPersonajes = [];
 
 let app = document.querySelector("#app");
 
+
+
 function mostrarPersonajes(arrPersonajes) {
   arrPersonajes.forEach((personaje) => {
     let newCard = document.createElement("div");
     newCard.innerHTML = `
-                <div class="img-container">
-                    <img src= "${personaje.image}" alt="">
-                    <button class="status ${personaje.status} ">${personaje.status}</button>
-                </div>
-                <div class="info-container">
-                    <h3 class="character-name">${personaje.name}</h3>
-                    <p class="character-specie">${personaje.gender} - ${personaje.species}</p>
-                    <p class="character-location"><span>📍</span> ${personaje.location.name} </p>
-                </div>
-        `;
+        <div class="img-container">
+            <img src= "${personaje.image}" alt="">
+            <button class="status ${personaje.status} ">${personaje.status}</button>
+        </div>
+        <div class="info-container">
+            <h3 class="character-name">${personaje.name}</h3>
+            <p class="character-specie">${personaje.gender} - ${personaje.species}</p>
+            <p class="character-location"><span>📍</span> ${personaje.location.name} </p>
+        </div>
+    `;
+
+    newCard.addEventListener('click', (e)=>{
+        console.log('abriendo overlay')
+        abrirOverlay(personaje)  
+    })
+
     newCard.classList.add("card");
     app.appendChild(newCard);
   });
@@ -30,6 +38,76 @@ function scrollUp(){
         behavior: 'smooth' 
     }); 
 }
+
+function abrirOverlay(personaje){
+    
+       let overlay = document.getElementById('overlay')
+        overlay.style.display = 'flex'
+        document.body.style.overflow = "hidden";
+
+        console.log(personaje.episode)
+
+       overlay.innerHTML = ` 
+
+       <div class="overlay-container">
+            <div class="overlay-img-container"> 
+                <button id="close-overlay">X</button> 
+                <img src="${personaje.image}" alt=""> 
+            </div> 
+            <section class="detail-info-container"> 
+                <article> 
+                    <h3 class="character-name">${personaje.name}</h3> 
+                    <h4 class="info-tittle">Información</h4> 
+                    <div class="informacion"> 
+                        <div> 
+                            <h5>ESTADO</h5> 
+                            <p>${personaje.status}</p> 
+                        </div> 
+                        <div> 
+                            <h5>ESPECIE</h5> 
+                            <p>${personaje.species}</p> 
+                        </div> 
+                        <div> 
+                            <h5>GÉNERO</h5> 
+                            <p>${personaje.gender}</p> 
+                        </div> 
+                        <div> 
+                            <h5>ORIGEN</h5> 
+                            <p>${personaje.origin.name}</p> 
+                        </div> 
+                        <div> 
+                            <h5>UBICACIÓN</h5> 
+                            <p>${personaje.location.name}</p> 
+                        </div> 
+                    </div> 
+                </article> 
+                <article class="episodes"> 
+                    <h4>Apariciones (${personaje.episode.length})</h4> 
+                </article> 
+            </section> 
+        </div> 
+    `;
+
+
+    let close = document.getElementById('close-overlay')
+
+    close.addEventListener('click', (e)=>{
+        e.preventDefault()
+        overlay.style.display = 'none'
+        document.body.style.overflow = "scroll";
+         
+    })
+
+    overlay.addEventListener("click", (e) => { 
+        if (e.target.id === "overlay") { 
+            e.target.style.display = "none"; 
+            document.body.style.overflow = "auto"; 
+        } 
+    });
+
+
+}
+
 
 
 
@@ -103,15 +181,16 @@ buttonAnterior.addEventListener('click',(e)=>{
     paginaAnterior()
 })
 
-function desabilitarPagination (button){
+function desabilitarPagination(){
     buttonSiguiente.disabled = true
     buttonAnterior.disabled = true
 }
 
-function habilitarPagination (button){
+function habilitarPagination(){
     buttonSiguiente.disabled = false
     buttonAnterior.disabled = false
 }
+
 function paginationImposible(){
     if (paginaActual === 1){
         buttonAnterior.disabled = true
@@ -120,10 +199,10 @@ function paginationImposible(){
     }
 
     if (paginaActual === totalPaginas){
-            buttonSiguiente.disabled = true
-      }else{
-            buttonSiguiente.disabled = false
-      }
+        buttonSiguiente.disabled = true
+    }else{
+        buttonSiguiente.disabled = false
+    }
 
 }
 
@@ -133,14 +212,18 @@ function paginationImposible(){
 
 async function cargarTodosLosPersonajes() { 
     let url = "https://rickandmortyapi.com/api/character"; 
-    let data = await fetch(url).then(r => r.json());// Guardamos los primeros resultados 
-    let todos = [...data.results];// Total de páginas 
+    let data = await fetch(url).then(r => r.json());
 
-    let totalPaginas = data.info.pages; // Cargar el resto de páginas 
+    // Guardamos los primeros resultados 
+    let todos = [...data.results];
 
+    // Total de páginas 
+    let totalPaginas = data.info.pages; 
+    
+    // Cargar el resto de páginas 
     for (let i = 2; i <= totalPaginas; i++) { 
         let pageData = await fetch(`${url}?page=${i}`)
-        .then(r => r.json()); 
+            .then(r => r.json()); 
         todos = [...todos, ...pageData.results]; 
     } 
     return todos; 
@@ -149,66 +232,45 @@ async function cargarTodosLosPersonajes() {
 let todosLosPersonajes = []; 
 
 (async () => {
-     todosLosPersonajes = await cargarTodosLosPersonajes(); console.log("Total personajes cargados:",todosLosPersonajes.length); 
+     todosLosPersonajes = await cargarTodosLosPersonajes(); 
 })();
 
 
 
 
-let search = document.getElementById('search')
-search.addEventListener('input', (e)=>{
-    const busqueda = e.target.value.toLowerCase();
-    console.log('Buscando:', busqueda);
-    
-    if (busqueda === "") { 
+let search = document.getElementById('search'); 
+let filtro = document.getElementById('filtro'); 
+
+search.addEventListener('input', aplicarFiltros); 
+filtro.addEventListener('input', aplicarFiltros); 
+
+function aplicarFiltros() { 
+    const textoBusqueda = search.value.toLowerCase(); 
+    const textoFiltro = filtro.value.toLowerCase(); 
+
+    // Si ambos están vacíos, recargar la paginación normal 
+    if (textoBusqueda === "" && textoFiltro === "") { 
         app.innerHTML = ""; 
         cargarPersonajes(paginaActual); 
-        habilitarPagination()
-        return; 
-    }
+        habilitarPagination(); return; 
+    } 
 
-    // Filtrar personajes
-    const filtrados = todosLosPersonajes.filter(personaje => {
-        return personaje.name.toLowerCase().includes(busqueda);
-    });
+    // Filtrado combinado 
+    const filtrados = todosLosPersonajes.filter(personaje => { 
+        const coincideNombre = personaje.name.toLowerCase().includes(textoBusqueda); 
 
-    app.innerHTML = "";
+        const coincideEstado = personaje.status.toLowerCase().includes(textoFiltro); 
 
-    if (filtrados.length === 0) { 
-        app.innerHTML = ` <div class="no-results"> <p>No se encontraron personajes con ese nombre...</p> </div> `; return; 
-    }
+        return coincideNombre && coincideEstado;
+    }); 
 
-    mostrarPersonajes(filtrados);
-    desabilitarPagination()
-});
-
-let filtro = document.getElementById('filtro')
-
-filtro.addEventListener('input', (e)=>{
-    const filtro = e.target.value.toLowerCase();
-    console.log('Buscando:', filtro);
-    
-    if (filtro === "") { 
-        app.innerHTML = ""; 
-        cargarPersonajes(paginaActual); 
-        habilitarPagination()
-        return; 
-    }
-
-    // Filtrar personajes
-    const filtrados = todosLosPersonajes.filter(personaje => {
-        return personaje.status.toLowerCase().includes(filtro);
-    });
-
-    app.innerHTML = "";
+    app.innerHTML = ""; 
 
     if (filtrados.length === 0) { 
-        app.innerHTML = ` <div class="no-results"> <p>No se encontraron personajes con ese nombre...</p> </div> `; return; 
-    }
-
-    mostrarPersonajes(filtrados);
-    desabilitarPagination()
-});
-
-
-
+        app.innerHTML = ` <div class="no-results"> <p>No se encontraron personajes con esos filtros...</p> </div> `;
+        return; 
+    } 
+       
+    mostrarPersonajes(filtrados); 
+    desabilitarPagination(); 
+}
