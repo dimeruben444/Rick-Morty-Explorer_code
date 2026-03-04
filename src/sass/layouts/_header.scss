@@ -4,10 +4,17 @@
     padding: 2rem;
     text-align: center;
     position: sticky;
+    width: 100%;
     top: 0;
     z-index: 100;
     box-shadow: 0 4px 30px rgba(0, 255, 136, 0.3);
     backdrop-filter: blur(10px);
+   
+    transition: transform 0.3s ease;
+}
+
+.header.hidden { 
+    transform: translateY(-100%); 
 }
 
 .logo {
@@ -100,4 +107,48 @@
     border-radius: 10px;
     font-size: 0.75rem;
     margin-left: 0.5rem;
+}
+
+#explorer form{
+    display: flex;
+    justify-content: center;
+    gap: 1.4rem;
+    #search{
+        margin: 1rem 0;
+        max-width: 20rem;
+        border-radius: 0;
+    }
+    #search:focus{
+        outline: none;
+        background-color: rgba(250, 250, 250, 0.212);
+        
+    }
+
+
+    #filtro{
+        color: gray;
+        height: 2.8rem;
+        align-self: center;
+        border: 2px solid #00ff88;
+        background-color: #2a2a2a;
+
+        &:focus{
+            outline: none;
+            
+            
+        }
+        
+
+        option{
+             color: gray;
+            height: 2.8rem;
+            align-self: center;
+            border: 2px solid #00ff88;
+            background-color: #2a2a2a;
+
+        }
+        
+        
+    }
+
 }

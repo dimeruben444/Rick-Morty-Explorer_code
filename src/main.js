@@ -1,13 +1,34 @@
 import "./sass/style.scss";
 
 
-let arrPersonajes = [];
-
 let app = document.querySelector("#app");
 
+//Header 
 
+
+let lastScroll = 0; 
+const header = document.querySelector("header"); 
+
+window.addEventListener("scroll", () => { 
+    
+    const currentScroll = window.pageYOffset; 
+    if (currentScroll > lastScroll) { // Scroll hacia abajo → ocultar 
+    header.classList.add("hidden"); 
+    } else { // Scroll hacia arriba → mostrar 
+        header.classList.remove("hidden"); 
+    } 
+    lastScroll = currentScroll; 
+});
+
+
+
+
+//render personajes 
+let arrPersonajes = [];
 
 function mostrarPersonajes(arrPersonajes) {
+    app.innerHTML = "";
+
   arrPersonajes.forEach((personaje) => {
     let newCard = document.createElement("div");
     newCard.innerHTML = `
@@ -141,31 +162,129 @@ const cargarPersonajes = async (numeroPagina) => {
     });
 };
 
-
-
 cargarPersonajes(1);
 
+
+
+
+// Episodios
+
+let arrEpisodios = [];
+
+function mostrarEpisodios(arrEpisodios) {
+    app.innerHTML = "";
+  arrEpisodios.forEach((episodio) => {
+    let newEp = document.createElement("div");
+    newEp.innerHTML = `
+        <div class="ep-container">
+            <p class="ep">Episodio</p>
+            <p class="episode">${episodio.episode}</p>
+            
+            <h3 class="ep-name">${episodio.name}</h3> 
+            <p class="estreno">Estreno<p class="ep-air">${episodio.air_date}</p></p>
+            
+            
+        </div>
+    `;
+
+    /* newEp.addEventListener('click', (e)=>{
+        console.log('abriendo overlay')
+        abrirOverlay(personaje)  
+    }) */
+
+    newEp.classList.add("ep");
+    app.appendChild(newEp);
+  });
+}
+
+
+const cargarEpisodios = async (numeroPagina) => {
+  document.getElementById("app").innerHTML = "<p>Cargando...</p>";
+
+  let urlApi = `https://rickandmortyapi.com/api/episode/?page=${numeroPagina}`;
+
+  await fetch(urlApi)
+    .then((response) => response.json())
+    .then((data) => {
+
+      arrEpisodios = data.results;
+      paginaActual = numeroPagina;
+      totalPaginas = data.info.pages;
+      
+
+      document.getElementById("app").innerHTML = "";
+      
+      mostrarEpisodios(arrEpisodios);
+      actualizarPagInfo()
+      paginationImposible()
+
+      scrollUp()
+       
+    });
+};
+
+
+const btnEp = document.getElementById('btn-ep')
+const btnCh = document.getElementById('btn-ch')
+
+btnEp.addEventListener(('click') , (e)=>{
+    e.preventDefault()
+    btnCh.classList.remove('active')
+    btnEp.classList.add('active')
+    document.getElementById('explorer').style.display = 'none'
+    cargarEpisodios(1)
+
+})
+
+btnCh.addEventListener(('click') , (e)=>{
+    e.preventDefault()
+    btnEp.classList.remove('active')
+    btnCh.classList.add('active')
+    document.getElementById('explorer').style.display = 'inherit'
+    cargarPersonajes(1)
+
+})
+
+
 //PAGINATION
-
-
 
 const pagInfo =  document.getElementById('paginfo')
 
 function actualizarPagInfo(){
     pagInfo.innerHTML=`Página ${paginaActual} de ${totalPaginas}`
-    
 }
 
 function paginaSiguiente(){
-    if(paginaActual < totalPaginas){
-        cargarPersonajes(paginaActual + 1)  
+
+    if (btnCh.classList.contains('active')){
+        if(paginaActual < totalPaginas){
+            cargarPersonajes(paginaActual + 1)  
+        }
     }
+    if(btnEp.classList.contains('active')){
+        if(paginaActual < totalPaginas){
+            cargarEpisodios(paginaActual + 1)  
+        }
+
+    }
+    
 }
 
 function paginaAnterior(){
-    if(paginaActual > 1 ){
-        cargarPersonajes(paginaActual - 1)
-    }  
+
+    if (btnCh.classList.contains('active')){
+
+        if(paginaActual > 1){
+            cargarPersonajes(paginaActual - 1)  
+        }
+    }
+
+    if(btnEp.classList.contains('active')){
+        if(paginaActual > 1){
+            cargarEpisodios(paginaActual - 1)  
+        }
+
+    } 
 }
 
 const buttonSiguiente= document.getElementById('siguiente')
@@ -178,6 +297,7 @@ buttonSiguiente.addEventListener('click',(e)=>{
 
 buttonAnterior.addEventListener('click',(e)=>{
     e.preventDefault()
+    console.log('anterior')
     paginaAnterior()
 })
 
@@ -200,6 +320,7 @@ function paginationImposible(){
 
     if (paginaActual === totalPaginas){
         buttonSiguiente.disabled = true
+        
     }else{
         buttonSiguiente.disabled = false
     }
