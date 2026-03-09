@@ -5,6 +5,7 @@ let app = document.querySelector("#app");
 //Header
 
 let lastScroll = 0;
+
 const header = document.querySelector("header");
 
 window.addEventListener("scroll", () => {
@@ -20,13 +21,13 @@ window.addEventListener("scroll", () => {
 });
 
 //render personajes
-let arrPersonajes = [];
+//expoprtada
 
 function mostrarPersonajes(arrPersonajes) {
   app.innerHTML = "";
 
   arrPersonajes.forEach((personaje) => {
-    let newCard = document.createElement("div");
+    const newCard = document.createElement("div");
     newCard.innerHTML = `
         <div class="id " id="${personaje.id}" ></div>
         <div class="img-container">
@@ -63,6 +64,7 @@ function mostrarPersonajes(arrPersonajes) {
 
 let totalFav = Number();
 let arrFav = [];
+
 
 function actualizarLocalStorage(arrFav) {
   
@@ -124,6 +126,8 @@ function guardarFav(e) {
   }
 }
 
+
+///exportada
 function scrollUp() {
   window.scrollTo({
     top: 0,
@@ -131,6 +135,9 @@ function scrollUp() {
   });
 }
 
+
+
+///exportada
 function abrirOverlay(personaje) {
   let overlay = document.getElementById("overlay");
   overlay.style.display = "flex";
@@ -195,8 +202,13 @@ function abrirOverlay(personaje) {
   });
 }
 
+
+
+
+//exportado
 let paginaActual = 1;
 let totalPaginas = 1;
+let arrPersonajes = [];
 
 const cargarPersonajes = async (numeroPagina) => {
   document.getElementById("app").innerHTML = "<p>Cargando...</p>";
@@ -222,10 +234,13 @@ const cargarPersonajes = async (numeroPagina) => {
 
 cargarPersonajes(1);
 
+
+
+
+
+
+//exportado
 // Episodios
-
-let arrEpisodios = [];
-
 function mostrarEpisodios(arrEpisodios) {
   app.innerHTML = "";
   arrEpisodios.forEach((episodio) => {
@@ -249,6 +264,10 @@ function mostrarEpisodios(arrEpisodios) {
   });
 }
 
+
+
+//exportado 
+let arrEpisodios = [];
 const cargarEpisodios = async (numeroPagina) => {
   document.getElementById("app").innerHTML = "<p>Cargando...</p>";
 
@@ -270,6 +289,10 @@ const cargarEpisodios = async (numeroPagina) => {
       scrollUp();
     });
 };
+
+
+
+
 
 //FAVORITOS
 
@@ -384,9 +407,10 @@ btnFav.addEventListener("click", (e) => {
 
 //PAGINATION
 
-const pagInfo = document.getElementById("paginfo");
+//exportado 
 
 function actualizarPagInfo() {
+  const pagInfo = document.getElementById("paginfo");
   pagInfo.innerHTML = `Página ${paginaActual} de ${totalPaginas}`;
 }
 
@@ -456,6 +480,8 @@ function paginationImposible() {
 }
 
 //BUSCADOR FILTRO
+//exportado 
+
 
 async function cargarTodosLosPersonajes() {
   let url = "https://rickandmortyapi.com/api/character";
