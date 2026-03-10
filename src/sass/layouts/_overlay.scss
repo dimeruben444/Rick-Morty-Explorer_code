@@ -69,7 +69,7 @@
 }
 
 
-.informacion{
+.informacion , #informacion{
     
     
     div{
@@ -81,7 +81,7 @@
             
         }
 
-        h5{
+        h5 {
             color: var(--clr-rick-cyan);
             font-family: 'Orbitron', sans-serif;
             font-size: 1rem;
@@ -97,3 +97,14 @@
     }
 }
 
+.epep{
+    color:#00ff88;
+}
+
+h4 {
+            color: var(--clr-rick-cyan);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+
+        }

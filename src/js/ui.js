@@ -1,7 +1,7 @@
 //--------------------------------------------------
 //Interfaz de usuario : efectos visuales y modales 
 //--------------------------------------------------
-
+import { episodiosPersonaje } from "./episodios";
 
 
 //Funcion que oculta el header al hacer scroll hacia abajo y lo muestra al hacerlo hacia arriba 
@@ -25,8 +25,9 @@ export function abrirOverlay(personaje) {
   let overlay = document.getElementById("overlay");
   overlay.style.display = "flex";
   document.body.style.overflow = "hidden";
+  episodiosPersonaje(personaje.episode)
 
-  console.log(personaje.episode);
+  //console.log(personaje.episode);
 
   overlay.innerHTML = ` 
 
@@ -62,8 +63,10 @@ export function abrirOverlay(personaje) {
                         </div> 
                     </div> 
                 </article> 
-                <article class="episodes"> 
+                <article class=""> 
                     <h4>Apariciones (${personaje.episode.length})</h4> 
+                    
+                    <div id="informacion"></div>
                 </article> 
             </section> 
         </div> 

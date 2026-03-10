@@ -46,6 +46,7 @@ export const cargarEpisodios = async (numeroPagina) => {
     .then((response) => response.json())
     .then((data) => {
       arrEpisodios = data.results;
+      console.log(arrEpisodios)
       paginaActual = numeroPagina;
       totalPaginas = data.info.pages;
 
