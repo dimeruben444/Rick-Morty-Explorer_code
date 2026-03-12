@@ -5,17 +5,19 @@
 
 
 import { abrirOverlay } from "./ui.js";
-//import { guardarFav } from "./favoritos.js";
-import { arrPersonajes } from "./paginacion.js";
+import {guardarFav } from "./favoritos.js";
 
 
 
 
 export function mostrarPersonajes(arrPersonajes) {
   const app = document.getElementById("app");
+  const favs = JSON.parse(localStorage.getItem("arrayFavId")) || [];
   app.innerHTML = "";
 
   //por cada personaje crea una card
+
+
   arrPersonajes.forEach((personaje) => {
     const newCard = document.createElement("div");
     newCard.innerHTML = `
@@ -41,14 +43,31 @@ export function mostrarPersonajes(arrPersonajes) {
     });
 
 
-/*     //Boton favoritos
+    //Boton favoritos
     const favBtn = newCard.querySelector(".favorite-btn");
+
+    if (favs.includes(personaje.id)) {
+      favBtn.classList.add("active");
+      favBtn.textContent = "❤️";
+    }
+
     favBtn.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
       guardarFav(e);
     });
- */
+
+    const updatedFavs = JSON.parse(localStorage.getItem("arrayFavId")) || [];
+
+    if (updatedFavs.includes(personaje.id)) {
+      favBtn.classList.add("active");
+      favBtn.textContent = "❤️";
+    } else {
+      favBtn.classList.remove("active");
+      favBtn.textContent = "🤍";
+    }
+    
+ 
 
     
     newCard.classList.add("card");

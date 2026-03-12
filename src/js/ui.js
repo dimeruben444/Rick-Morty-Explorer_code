@@ -20,6 +20,14 @@ export function ocultarHeaderScroll(){
     });
 }
 
+//scrol hacia arriba de cuando se carga la pagina sigiente o anterior
+export function scrollUp() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
+
 
 export function abrirOverlay(personaje) {
   let overlay = document.getElementById("overlay");
@@ -88,6 +96,17 @@ export function abrirOverlay(personaje) {
   });
 }
 
+export function inicializarContadorFav() {
+  const favs = JSON.parse(localStorage.getItem("arrayFavId")) || [];
+  const countFav = document.getElementById("count-fav");
 
+  countFav.textContent = favs.length;
+
+  if (favs.length > 0) {
+    countFav.style.display = "inline-block";
+  } else {
+    countFav.style.display = "none";
+  }
+}
 
 

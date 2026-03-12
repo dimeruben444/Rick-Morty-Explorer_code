@@ -300,6 +300,7 @@ let arrPersonajesFav = [];
 
 function mostrarFavoritos(arrPersonajesFav) {
   app.innerHTML = "";
+  const favs = JSON.parse(localStorage.getItem("arrayFavId")) || [];
 
   arrPersonajesFav.forEach((personaje) => {
     let newCard = document.createElement("div");
@@ -326,10 +327,16 @@ function mostrarFavoritos(arrPersonajesFav) {
 
     const favBtn = newCard.querySelector(".favorite-btn");
 
+    if (favs.includes(personaje.id)) {
+      favBtn.classList.add("active");
+      favBtn.textContent = "❤️";
+    }
+
     favBtn.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
       guardarFav(e);
+      cargarPersonajesFav();
     });
 
     newCard.classList.add("card");

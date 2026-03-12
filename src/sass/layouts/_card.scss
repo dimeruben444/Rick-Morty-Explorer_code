@@ -36,6 +36,7 @@
         text-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
         margin-top: 0;
         animation: glowPulse 2.5s ease-in-out infinite;
+        
     }
 
     .info-container .character-specie{
@@ -166,6 +167,7 @@
     justify-content: center;
     font-size: 1.2rem;
     z-index: 10;
+    
 }
 
 .favorite-btn:hover {

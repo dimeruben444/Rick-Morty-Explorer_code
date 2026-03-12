@@ -1,7 +1,7 @@
 
 import { mostrarPersonajes } from "./personajes.js";
 import { mostrarEpisodios } from "./episodios.js";
-import { scrollUp } from "./utils.js";
+import { scrollUp } from "./ui.js";
 
 
 

@@ -2,12 +2,27 @@ import { cargarPersonajes, desabilitarPagination, habilitarPagination } from "./
 import { mostrarPersonajes } from "./personajes.js";
 import { paginaActual } from "./paginacion.js";
 
+const app = document.getElementById("app");
+const search = document.getElementById("search");
+const filtro = document.getElementById("filtro");
 
+async function initFiltros() {
+  console.log("Cargando todos los personajes...");
+  todosLosPersonajes = await cargarTodosLosPersonajes();
+  console.log("Personajes cargados:", todosLosPersonajes.length);
+
+  // Activar listeners SOLO cuando ya están cargados
+  search.addEventListener("input",aplicarFiltros);
+  filtro.addEventListener("input", aplicarFiltros);
+}
+
+initFiltros();
 
 
 export async function cargarTodosLosPersonajes() {
   let url = "https://rickandmortyapi.com/api/character";
-  let data = await fetch(url).then((r) => r.json());
+  let data = await fetch(url)
+    .then((r) => r.json());
 
   // Guardamos los primeros resultados
   let todos = [...data.results];
@@ -29,13 +44,18 @@ export let todosLosPersonajes = [];
   todosLosPersonajes = await cargarTodosLosPersonajes();
 })();
 
-const search = document.getElementById("search");
-const filtro = document.getElementById("filtro");
 
-search.addEventListener("input", aplicarFiltros);
-filtro.addEventListener("input", aplicarFiltros);
+
+
+
+
+
+
 
 export function aplicarFiltros() {
+  if (todosLosPersonajes.length === 0) {
+    return;
+  }
   const textoBusqueda = search.value.toLowerCase();
   const textoFiltro = filtro.value.toLowerCase();
 
@@ -66,3 +86,5 @@ export function aplicarFiltros() {
   mostrarPersonajes(filtrados);
   desabilitarPagination();
 }
+
+

@@ -1,20 +1,17 @@
 console.log("MAIN CARGADO");
 import "../sass/style.scss";
 
-import { ocultarHeaderScroll } from "./ui.js";
-import { mostrarPersonajes } from "./personajes.js";
-//import { cargarPersonajes } from "./api.js"; 
-
-import { scrollUp } from "./utils.js";
-
+import { ocultarHeaderScroll ,inicializarContadorFav } from "./ui.js";
 import { cargarPersonajes, buttonAnterior, buttonSiguiente ,paginaSiguiente, paginaAnterior} from "./paginacion.js";
 import { cargarEpisodios } from "./paginacion.js";
+import { cargarPersonajesFav } from "./favoritos.js";
+import "./filtros.js";
 
-
-import { aplicarFiltros, cargarTodosLosPersonajes } from "./filtros.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   cargarPersonajes(1);
+  inicializarContadorFav();
+  
 });
 
 
@@ -51,8 +48,9 @@ btnEp.addEventListener("click", (e) => {
 
 btnCh.addEventListener("click", (e) => {
   e.preventDefault();
+  
   btnEp.classList.remove("active");
-   btnFav.classList.remove("active");
+  btnFav.classList.remove("active");
   btnCh.classList.add("active");
   document.getElementById("explorer").style.display = "inherit";
   cargarPersonajes(1);
@@ -65,5 +63,5 @@ btnFav.addEventListener("click", (e) => {
   btnFav.classList.add("active");
 
   document.getElementById("explorer").style.display = "inherit";
-  cargarPersonajesFav(localStorage.getItem('arrayFavId'));
+  cargarPersonajesFav();
 });
