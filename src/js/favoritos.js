@@ -1,3 +1,4 @@
+import { desabilitarPagination,borrarPagInfo } from "./paginacion";
 import { abrirOverlay } from "./ui";
 
 let arrPersonajesFav = [];
@@ -47,13 +48,17 @@ export function mostrarFavoritos(arrPersonajesFav) {
 
     newCard.classList.add("card");
     app.appendChild(newCard);
+    
   });
+  desabilitarPagination()
+  borrarPagInfo()
 }
 
 
 
 export const cargarPersonajesFav = async () => {
   document.getElementById("app").innerHTML = "<p>Cargando...</p>";
+  
 
    const favIds = JSON.parse(localStorage.getItem("arrayFavId")) || [];
 
@@ -64,7 +69,7 @@ export const cargarPersonajesFav = async () => {
       </div>
     `;
     actualizarPagInfo?.();
-    paginationImposible?.();
+    
     return;
   }
 
@@ -80,8 +85,10 @@ export const cargarPersonajesFav = async () => {
       mostrarFavoritos(arrPersonajesFav);
       actualizarPagInfo();
       paginationImposible();
+      
       scrollUp();
     });
+    
 };
 
 

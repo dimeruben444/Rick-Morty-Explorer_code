@@ -16,21 +16,37 @@ export const cargarPersonajes = async (numeroPagina) => {
 
   let urlApi = `https://rickandmortyapi.com/api/character/?page=${numeroPagina}`;
 
-  await fetch(urlApi)
-    .then((response) => response.json())
+  try{
+    await fetch(urlApi)
+    .then((response) =>{
+      if (!response.ok){
+        throw new Error(`Error HTTP:${response.status}`)
+      }
+      return response.json()
+
+    })
+
     .then((data) => {
       arrPersonajes = data.results;
       paginaActual = numeroPagina;
       totalPaginas = data.info.pages;
-
       document.getElementById("app").innerHTML = "";
-
       mostrarPersonajes(arrPersonajes);
       actualizarPagInfo();
       paginationImposible();
-
       scrollUp();
     });
+
+
+  } catch(error){
+    console.error("Error al cargar personajes:", error);
+
+    document.getElementById("app").innerHTML = `
+      <p style="color:red; font-weight:bold;">
+        Ocurrió un error al cargar los personajes. Intenta nuevamente.
+      </p>
+    `;
+  }  
 };
 
 
@@ -41,9 +57,14 @@ export const cargarEpisodios = async (numeroPagina) => {
   document.getElementById("app").innerHTML = "<p>Cargando...</p>";
 
   const urlApi = `https://rickandmortyapi.com/api/episode/?page=${numeroPagina}`;
-
-  await fetch(urlApi)
-    .then((response) => response.json())
+  try{
+    await fetch(urlApi)
+    .then((response) =>{
+      if(!response.ok){
+        throw Error (`Error HTTP:${response.status}`)
+      }
+      return response.json()
+    })
     .then((data) => {
       arrEpisodios = data.results;
       console.log(arrEpisodios)
@@ -58,6 +79,19 @@ export const cargarEpisodios = async (numeroPagina) => {
 
       scrollUp();
     });
+  
+
+
+  }catch (error){
+    console.error("Error al cargar personajes:", error);
+
+    document.getElementById("app").innerHTML = `
+      <p style="color:red; font-weight:bold;">
+        Ocurrió un error al cargar los personajes. Intenta nuevamente.
+      </p>
+    `;
+
+  }  
 };
 
 const btnEp = document.getElementById("btn-ep");
@@ -67,6 +101,11 @@ const btnFav = document.getElementById("btn-fav");
 export function actualizarPagInfo() {
   const pagInfo = document.getElementById("paginfo");
   pagInfo.innerHTML = `Página ${paginaActual} de ${totalPaginas}`;
+}
+
+export function borrarPagInfo() {
+  const pagInfo = document.getElementById("paginfo");
+  pagInfo.innerHTML = ``;
 }
 
 export function paginaSiguiente() {

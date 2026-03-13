@@ -58,10 +58,12 @@ btnCh.addEventListener("click", (e) => {
 
 btnFav.addEventListener("click", (e) => {
   e.preventDefault();
+  
   btnCh.classList.remove("active");
   btnEp.classList.remove("active");
   btnFav.classList.add("active");
-
-  document.getElementById("explorer").style.display = "inherit";
+  document.getElementById("explorer").style.display = "none";
+  
   cargarPersonajesFav();
+  
 });
